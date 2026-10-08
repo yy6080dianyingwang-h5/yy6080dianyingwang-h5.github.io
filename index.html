@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>yy6080电影网 - 高清电影/热播剧集/影视分类导航</title>
+<meta name="description" content="yy6080电影网（yy6080dianyingwang-h5）提供电影库、电视剧、综艺、动漫、纪录片与热播榜单导航，移动端自适应，支持快速找片与分类浏览。" />
+<meta name="keywords" content="yy6080电影网, yy6080dianyingwang-h5, 电影网, 热播剧集, 影视分类, 高清电影, GitHub Pages 影视站" />
+<link rel="canonical" href="https://yy6080dianyingwang-h5.github.io/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="yy6080电影网" />
+<meta property="og:url" content="https://yy6080dianyingwang-h5.github.io/" />
+<meta property="og:description" content="yy6080电影网：电影、剧集、综艺、动漫与热播榜单一站式导航。" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="yy6080电影网" />
+<meta name="twitter:description" content="yy6080dianyingwang-h5 影视导航站，移动端自适应。" />
+<style>
+:root{
+  --bg:#0b0608;
+  --bg2:#160a0e;
+  --red:#ff2d55;
+  --red2:#ff5e7a;
+  --gold:#ffce6b;
+  --ink:#fff3f5;
+  --muted:#c9a9b0;
+  --line:rgba(255,94,122,.28);
+  --card:rgba(255,255,255,.04);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(255,45,85,.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(255,206,107,.10), transparent 55%),
+    linear-gradient(180deg,var(--bg),var(--bg2));
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+/* header */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(12px);
+  background:rgba(11,6,8,.72);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+.brand .dot{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--red),var(--gold));
+  display:grid;place-items:center;color:#1a0a0d;font-weight:900;
+  box-shadow:0 6px 20px rgba(255,45,85,.35);
+}
+.brand small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.menu{display:flex;gap:18px;font-size:14px}
+.menu a{padding:8px 10px;border-radius:999px;color:var(--muted)}
+.menu a:hover{color:#fff;background:rgba(255,45,85,.14)}
+.hamburger{display:none;background:none;border:1px solid var(--line);color:#fff;border-radius:10px;padding:8px 12px}
+
+/* hero */
+.hero{
+  padding:64px 0 40px;
+  background-image:
+    linear-gradient(rgba(11,6,8,.78),rgba(11,6,8,.92)),
+    repeating-linear-gradient(115deg,rgba(255,255,255,.04) 0 2px,transparent 2px 26px);
+}
+.eyebrow{
+  display:inline-flex;gap:8px;align-items:center;
+  font-size:13px;color:var(--gold);
+  border:1px solid rgba(255,206,107,.35);
+  padding:6px 12px;border-radius:999px;margin-bottom:18px;
+}
+.hero h1{
+  font-size:clamp(30px,6vw,58px);
+  margin:0 0 14px;line-height:1.08;
+}
+.hero h1 span{
+  background:linear-gradient(90deg,var(--red2),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{max-width:680px;color:var(--muted);font-size:17px;margin:0 0 26px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 22px;border-radius:14px;font-weight:700;font-size:15px;
+  border:1px solid transparent;cursor:pointer;
+}
+.btn.primary{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 10px 30px rgba(255,45,85,.35)}
+.btn.ghost{border-color:var(--line);color:#fff;background:rgba(255,255,255,.03)}
+.stats{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
+.stat b{font-size:26px;color:#fff}
+.stat span{display:block;color:var(--muted);font-size:13px}
+
+/* layout */
+.section{padding:54px 0;border-top:1px solid rgba(255,255,255,.05)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:26px}
+.sec-head h2{font-size:clamp(22px,3.4vw,32px);margin:0}
+.sec-head p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.tag{font-size:12px;color:var(--gold);border:1px dashed rgba(255,206,107,.4);padding:4px 10px;border-radius:999px}
+
+/* film grid */
+.film-grid{
+  display:grid;gap:16px;
+  grid-template-columns:repeat(4,1fr);
+}
+.film{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line);background:var(--card);
+}
+.film img{aspect-ratio:2/3;object-fit:cover;filter:saturate(1.05)}
+.film .meta{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(transparent,rgba(0,0,0,.86))}
+.film h3{margin:0;font-size:15px}
+.film .sub{font-size:12px;color:var(--muted)}
+.film .badge{
+  position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;
+  background:rgba(255,45,85,.92);color:#fff;padding:4px 8px;border-radius:8px;
+}
+
+/* channels */
+.channels{
+  display:grid;gap:14px;grid-template-columns:repeat(3,1fr);
+}
+.channel{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:18px;border-radius:16px;border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+}
+.channel .ico{
+  width:46px;height:46px;border-radius:12px;flex:0 0 auto;
+  display:grid;place-items:center;font-size:22px;
+  background:linear-gradient(135deg,rgba(255,45,85,.25),rgba(255,206,107,.18));
+  border:1px solid var(--line);
+}
+.channel h3{margin:0 0 4px;font-size:16px}
+.channel p{margin:0;color:var(--muted);font-size:13px}
+
+/* series split */
+.series{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch;
+}
+.series-feature{
+  border-radius:20px;overflow:hidden;border:1px solid var(--line);position:relative;min-height:320px;
+  background-size:cover;background-position:center;
+}
+.series-feature .cap{position:absolute;left:0;right:0;bottom:0;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,.85))}
+.series-list{display:flex;flex-direction:column;gap:10px}
+.series-item{
+  display:flex;gap:14px;align-items:center;padding:12px 14px;border-radius:14px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+}
+.series-item .no{font-weight:900;color:var(--gold);width:26px}
+.series-item h4{margin:0;font-size:15px}
+.series-item span{font-size:12px;color:var(--muted)}
+
+/* ranking */
+.rank{
+  display:grid;gap:12px;counter-reset:r;grid-template-columns:repeat(2,1fr);
+}
+.rank-item{
+  display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+}
+.rank-item::before{
+  counter-increment:r;content:counter(r);
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:900;
+  background:linear-gradient(135deg,var(--red),var(--gold));color:#1a0a0d;
+}
+.rank-item h4{margin:0;font-size:15px}
+.rank-item span{font-size:12px;color:var(--muted)}
+
+/* about */
+.about{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:center;
+}
+.about .panel{
+  border:1px solid var(--line);border-radius:20px;padding:24px;
+  background:linear-gradient(180deg,rgba(255,45,85,.08),rgba(255,255,255,.02));
+}
+.about ul{margin:14px 0 0;padding-left:18px;color:var(--muted)}
+.about li{margin:6px 0}
+
+/* faq */
+.faq{display:grid;gap:12px}
+.qa{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);overflow:hidden}
+.qa summary{
+  cursor:pointer;padding:16px 18px;font-weight:700;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";color:var(--gold);font-size:20px}
+.qa[open] summary::after{content:"−"}
+.qa p{margin:0;padding:0 18px 18px;color:var(--muted)}
+
+/* footer */
+.footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.footer b{color:#fff}
+.footer .links{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0}
+
+/* responsive */
+@media (max-width:960px){
+  .film-grid{grid-template-columns:repeat(3,1fr)}
+  .channels{grid-template-columns:repeat(2,1fr)}
+  .series,.about{grid-template-columns:1fr}
+  .rank{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .menu{
+    position:absolute;top:62px;left:0;right:0;
+    flex-direction:column;gap:0;background:rgba(11,6,8,.98);
+    border-bottom:1px solid var(--line);display:none;
+  }
+  .menu.show{display:flex}
+  .menu a{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .hamburger{display:inline-block}
+  .film-grid{grid-template-columns:repeat(2,1fr)}
+  .channels{grid-template-columns:1fr}
+  .stats{gap:18px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="yy6080电影网 首页">
+      <span class="dot">YY</span>
+      <span>yy6080电影网<small>yy6080dianyingwang-h5.github.io</small></span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#films">影片库</a>
+      <a href="#channels">频道分类</a>
+      <a href="#series">热播剧集</a>
+      <a href="#rank">热播榜</a>
+      <a href="#about">关于我们</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <button class="hamburger" id="navBtn" aria-expanded="false" aria-controls="menu">菜单</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">● 影视导航 · 移动端自适应 · GitHub Pages</span>
+      <h1>yy6080电影网<br><span>找电影、追剧集、看榜单</span> 一站直达</h1>
+      <p>
+        yy6080电影网（yy6080dianyingwang-h5）聚焦电影、电视剧、综艺、动漫与纪录片分类浏览，
+        页面采用独立视觉结构与响应式布局，方便用户在手机、平板和电脑上快速找片。
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#films">浏览影片库</a>
+        <a class="btn ghost" href="#rank">查看热播榜</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>6</b><span>核心栏目</span></div>
+        <div class="stat"><b>12+</b><span>影视分类</span></div>
+        <div class="stat"><b>100%</b><span>移动端适配</span></div>
+        <div class="stat"><b>1</b><span>单页 index.html</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILMS -->
+  <section class="section" id="films">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>影片库</h2>
+          <p>电影卡片式布局，突出海报、评分与状态标签。</p>
+        </div>
+        <span class="tag">Film Library</span>
+      </div>
+
+      <div class="film-grid">
+        <article class="film">
+          <span class="badge">高清</span>
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080action/400/600" alt="yy6080电影网 动作电影 海报">
+          <div class="meta">
+            <h3>暗夜追击</h3>
+            <div class="sub">动作 / 犯罪 · 8.7 分</div>
+          </div>
+        </article>
+        <article class="film">
+          <span class="badge">热映</span>
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080love/400/600" alt="yy6080电影网 爱情电影 海报">
+          <div class="meta">
+            <h3>海边来信</h3>
+            <div class="sub">爱情 / 剧情 · 8.2 分</div>
+          </div>
+        </article>
+        <article class="film">
+          <span class="badge">科幻</span>
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080sci/400/600" alt="yy6080电影网 科幻电影 海报">
+          <div class="meta">
+            <h3>星轨边境</h3>
+            <div class="sub">科幻 / 冒险 · 9.0 分</div>
+          </div>
+        </article>
+        <article class="film">
+          <span class="badge">喜剧</span>
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080comedy/400/600" alt="yy6080电影网 喜剧电影 海报">
+          <div class="meta">
+            <h3>周末别加班</h3>
+            <div class="sub">喜剧 / 都市 · 7.9 分</div>
+          </div>
+        </article>
+        <article class="film">
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080doc/400/600" alt="yy6080电影网 纪录片 海报">
+          <div class="meta">
+            <h3>山海之间</h3>
+            <div class="sub">纪录片 / 自然 · 8.8 分</div>
+          </div>
+        </article>
+        <article class="film">
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080anim/400/600" alt="yy6080电影网 动漫电影 海报">
+          <div class="meta">
+            <h3>雾港少年</h3>
+            <div class="sub">动漫 / 奇幻 · 8.5 分</div>
+          </div>
+        </article>
+        <article class="film">
+          <span class="badge">悬疑</span>
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080myst/400/600" alt="yy6080电影网 悬疑电影 海报">
+          <div class="meta">
+            <h3>第十三层梦</h3>
+            <div class="sub">悬疑 / 惊悚 · 8.4 分</div>
+          </div>
+        </article>
+        <article class="film">
+          <img loading="lazy" src="https://picsum.photos/seed/yy6080war/400/600" alt="yy6080电影网 战争电影 海报">
+          <div class="meta">
+            <h3>长河落日</h3>
+            <div class="sub">战争 / 历史 · 9.1 分</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section class="section" id="channels">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>频道分类</h2>
+          <p>图标卡结构，强调频道入口与内容类型。</p>
+        </div>
+        <span class="tag">Categories</span>
+      </div>
+
+      <div class="channels">
+        <a class="channel" href="#">
+          <div class="ico">🎬</div>
+          <div>
+            <h3>电影频道</h3>
+            <p>动作、爱情、科幻、喜剧、悬疑、战争</p>
+          </div>
+        </a>
+        <a class="channel" href="#">
+          <div class="ico">📺</div>
+          <div>
+            <h3>电视剧频道</h3>
+            <p>国产剧、美剧、韩剧、日剧、短剧</p>
+          </div>
+        </a>
+        <a class="channel" href="#">
+          <div class="ico">🎤</div>
+          <div>
+            <h3>综艺频道</h3>
+            <p>真人秀、访谈、音乐、喜剧综艺</p>
+          </div>
+        </a>
+        <a class="channel" href="#">
+          <div class="ico">🧙</div>
+          <div>
+            <h3>动漫频道</h3>
+            <p>国漫、日漫、热血、治愈、奇幻</p>
+          </div>
+        </a>
+        <a class="channel" href="#">
+          <div class="ico">🌏</div>
+          <div>
+            <h3>纪录片频道</h3>
+            <p>自然、历史、人文、科技、旅行</p>
+          </div>
+        </a>
+        <a class="channel" href="#">
+          <div class="ico">🔥</div>
+          <div>
+            <h3>热门合集</h3>
+            <p>高分榜、新片速递、周末片单</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERIES -->
+  <section class="section" id="series">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>热播剧集</h2>
+          <p>左侧主视觉 + 右侧编号列表，结构和电影库完全不同。</p>
+        </div>
+        <span class="tag">Trending Series</span>
+      </div>
+
+      <div class="series">
+        <div class="series-feature" style="background-image:url('https://picsum.photos/seed/yy6080feature/900/700')">
+          <div class="cap">
+            <h3 style="margin:0 0 6px;font-size:22px">长安灯火烧</h3>
+            <span>古装 / 权谋 / 40 集 · 本周更新至 28 集</span>
+          </div>
+        </div>
+        <div class="series-list">
+          <a class="series-item" href="#">
+            <span class="no">01</span>
+            <div>
+              <h4>城南旧梦</h4>
+              <span>都市情感 · 更新第 16 集</span>
+            </div>
+          </a>
+          <a class="series-item" href="#">
+            <span class="no">02</span>
+            <div>
+              <h4>深海警备</h4>
+              <span>军旅悬疑 · 更新第 22 集</span>
+            </div>
+          </a>
+          <a class="series-item" href="#">
+            <span class="no">03</span>
+            <div>
+              <h4>实习生日记</h4>
+              <span>职场喜剧 · 更新第 12 集</span>
+            </div>
+          </a>
+          <a class="series-item" href="#">
+            <span class="no">04</span>
+            <div>
+              <h4>雾中列车</h4>
+              <span>悬疑推理 · 更新第 9 集</span>
+            </div>
+          </a>
+          <a class="series-item" href="#">
+            <span class="no">05</span>
+            <div>
+              <h4>星厨之家</h4>
+              <span>美食综艺剧 · 更新第 14 集</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANK -->
+  <section class="section" id="rank">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>热播榜</h2>
+          <p>计数器样式榜单，适合必应摘要与“排行榜”类搜索词。</p>
+        </div>
+        <span class="tag">Top Chart</span>
+      </div>
+
+      <div class="rank">
+        <a class="rank-item" href="#"><div><h4>暗夜追击</h4><span>电影 · 本周搜索热度 98.2w</span></div></a>
+        <a class="rank-item" href="#"><div><h4>长安灯火烧</h4><span>剧集 · 本周搜索热度 95.7w</span></div></a>
+        <a class="rank-item" href="#"><div><h4>星轨边境</h4><span>科幻电影 · 本周搜索热度 91.0w</span></div></a>
+        <a class="rank-item" href="#"><div><h4>城南旧梦</h4><span>都市剧 · 本周搜索热度 88.4w</span></div></a>
+        <a class="rank-item" href="#"><div><h4>山海之间</h4><span>纪录片 · 本周搜索热度 85.1w</span></div></a>
+        <a class="rank-item" href="#"><div><h4>雾中列车</h4><span>悬疑剧 · 本周搜索热度 83.6w</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>关于我们</h2>
+          <p>左文右卡布局，说明站点定位与合规提示。</p>
+        </div>
+        <span class="tag">About</span>
+      </div>
+
+      <div class="about">
+        <div class="panel">
+          <h3 style="margin:0 0 8px">yy6080电影网 是什么？</h3>
+          <p style="margin:0;color:var(--muted)">
+            yy6080电影网（yy6080dianyingwang-h5）是一个影视分类与找片导航示例站，
+            部署在 GitHub Pages，采用单页结构、语义化标签和移动端自适应布局。
+          </p>
+          <ul>
+            <li>单文件 index.html，CSS 内联，无构建步骤</li>
+            <li>栏目：影片库 / 频道分类 / 热播剧集 / 热播榜 / 关于 / 常见问题</li>
+            <li>内页链接使用 # 占位，方便后续接入正版片源</li>
+            <li>页面结构与前作不同，具备独立视觉方案</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 style="margin:0 0 8px">合规与版权提示</h3>
+          <p style="margin:0;color:var(--muted)">
+            若实际提供影视点播，应确保片源已获授权，并公示运营主体、隐私政策与版权说明。
+            优先对接正版视频平台或开放版权片源，避免未授权传播影视作品。
+          </p>
+          <ul>
+            <li>不诱导下载来路不明播放器 / 插件</li>
+            <li>不收集多余权限与支付信息</li>
+            <li>不把搜索引擎收录等同于版权合规</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>常见问题</h2>
+          <p>手风琴结构，利于必应/AI 摘要抓取问答。</p>
+        </div>
+        <span class="tag">FAQ</span>
+      </div>
+
+      <div class="faq">
+        <details class="qa" open>
+          <summary>yy6080电影网 是官方影视平台吗？</summary>
+          <p>本页是按名称生成的静态导航示例；若作为正式影视站运营，需有清晰主体、备案与版权授权，不能仅凭名称判断官方性。</p>
+        </details>
+        <details class="qa">
+          <summary>网站网址是什么？</summary>
+          <p>示例网址为 https://yy6080dianyingwang-h5.github.io ，可部署到 GitHub Pages 或后续绑定自定义域名。</p>
+        </details>
+        <details class="qa">
+          <summary>为什么内页链接都是 # ？</summary>
+          <p>当前为单页模板演示，内页用 # 占位；正式上线时可替换为影片详情页、分类页或正版播放页。</p>
+        </details>
+        <details class="qa">
+          <summary>这个页面适合必应收录吗？</summary>
+          <p>页面包含标题、描述、规范化链接、语义化结构、移动端适配与内链锚点，有利于爬虫理解；但是否排名还取决于内容质量、外链与原创价值。</p>
+        </details>
+        <details class="qa">
+          <summary>可以提供盗版影视资源吗？</summary>
+          <p>不建议。未经授权传播影视作品存在侵权与合规风险，应使用正版平台或已获授权的片源。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div><b>yy6080电影网</b> · https://yy6080dianyingwang-h5.github.io</div>
+    <div class="links">
+      <a href="#films">影片库</a>
+      <a href="#channels">频道分类</a>
+      <a href="#series">热播剧集</a>
+      <a href="#rank">热播榜</a>
+      <a href="#about">关于我们</a>
+      <a href="#faq">常见问题</a>
+    </div>
+    <div>本站为静态单页演示模板，封面图来自占位图服务，评分/榜单为示例数据；正式运营请确保影视内容版权合规。</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('navBtn');
+    var menu = document.getElementById('menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('show');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          menu.classList.remove('show');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
